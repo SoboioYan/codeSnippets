@@ -48,3 +48,10 @@ const tailorStr = (str, number = 8) => {
   const str2 = String(str).replace(/↵/g, '')
   return str2.slice(0, number) + '...'
 }
+
+//去除前后空白符
+const trim = str => {
+  if (str && typeof str === 'string') {
+    return str.replace(/(^\s*)|(\s*)$/g, '')
+  }
+}
