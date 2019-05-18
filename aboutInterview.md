@@ -1,6 +1,6 @@
-## 知识点的掌握
+# 知识点的掌握
 
-### 关于 HTML+CSS
+## 关于 HTML+CSS
 
 > 经典问题:
 > CSS 实现垂直水平居中
@@ -157,6 +157,9 @@ function Ustbwuyi() {
 
 2. 模板字符串
 
+- 模块化
+  - 模块化的功能主要由 export 和 import 组成。每一个模块都有自己单独的作用域，模块之间的相互调用关系是通过 export 来规定模块对外暴露的接口，通过 import 来引用其它模块提供的接口。同时还为模块创造了命名空间，防止函数的命名冲突。
+
 3. 函数的默认参数、箭头函数
 
 4. import 和 export
@@ -189,3 +192,73 @@ const promise = new Promise(function(resolve, reject) {
 - resolve 函数的作用是，将 Promise 对象的状态从“未完成”变为“成功”（即从 pending 变为 resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；reject 函数的作用是，将 Promise 对象的状态从“未完成”变为“失败”（即从 pending 变为 rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
 
 - Promise 实例生成以后，可以用 then 方法分别指定 resolved 状态和 rejected 状态的回调函数。
+
+- 数组的扩展运算符
+
+  - 扩展运算符（spread）是三个点（...）。它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。
+
+### 关于 ES7 你了解多少
+
+- Array.prototype.includes()方法
+  ```
+    ['a', 'b', 'c'].includes('a')     // true
+    ['a', 'b', 'c'].includes('d')     // false
+  ```
+- 求幂运算符（\*\*）
+
+  ```js
+  3 ** 2 // 9
+  ```
+
+### 关于 ES8 你了解多少
+
+- 异步函数(Async/await)
+
+  - 函数前面的 async 一词意味着一个简单的事情：这个函数总是返回一个 promise，如果代码中有 return <非 promise>语句，JavaScript 会自动把返回的这个 value 值包装成 promise 的 resolved 值。
+  - await 只能在 async 函数内部使用，可以让 JavaScript 进行等待，直到一个 promise 执行并返回它的结果，JavaScript 才会继续往下执行
+
+  ```js
+  async function showAvatar() {
+    // read our JSON
+    let response = await fetch('/article/promise-chaining/user.json')
+    let user = await response.json()
+
+    // read github user
+    let githubResponse = await fetch(`https://api.github.com/users/${user.name}`)
+    let githubUser = await githubResponse.json()
+
+    // 展示头像
+    let img = document.createElement('img')
+    img.src = githubUser.avatar_url
+    img.className = 'promise-avatar-example'
+    documenmt.body.append(img)
+
+    // 等待3s
+    await new Promise((resolve, reject) => {
+      setTimeout(resolve, 3000)
+    })
+
+    img.remove()
+
+    return githubUser
+  }
+  showAvatar()
+  ```
+
+- Object.entries()和 Object.values()
+
+  - Object.entries()
+
+    > 如果一个对象是具有键值对的数据结构，则每一个键值对都将会编译成一个具有两个元素的数组，这些数组最终会放到一个数组中，返回一个二维数组,若目标对象是数组时，则会将数组的下标作为键值返回
+
+    ```js
+    Object.entries({ one: 1, two: 2 }) //[['one', 1], ['two', 2]]
+    Object.entries([1, 2]) //[['0', 1], ['1', 2]]
+    ```
+
+  - Object.values()
+    > 它的工作原理跟 Object.entries()很像，顾名思义，它只返回自己的键值对中属性的值。它返回的数组顺序，也跟 Object.entries()保持一致。
+    ```js
+    Object.values({ one: 1, two: 2 }) //[1, 2]
+    Object.values({ 3: 'a', 4: 'b', 1: 'c' }) //['c', 'a', 'b']
+    ```
