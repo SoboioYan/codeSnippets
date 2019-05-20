@@ -1,4 +1,4 @@
-# 知识点的掌握
+# 基础知识点的掌握
 
 ## 关于 HTML+CSS
 
@@ -262,3 +262,63 @@ const promise = new Promise(function(resolve, reject) {
     Object.values({ one: 1, two: 2 }) //[1, 2]
     Object.values({ 3: 'a', 4: 'b', 1: 'c' }) //['c', 'a', 'b']
     ```
+
+  `剩余待补充...`
+
+# 插件的掌握
+
+## jQuery
+
+> [jQuery API](http://jquery.cuishifeng.cn/)
+
+### （简单的）jQuery 源码分析
+
+```js
+;(function(window, undefined) {})()
+// 一个匿名函数自执行，它的好处在于，可以把代码块中所有的变量都变成局部变量，这样就不会造成对全局变量的一个污染，导致代码冲突
+jQuery.fn = jQuery.prototype = {}
+// 表明jQuery是一个基于面向对象的程序，往后就是在给jQuery对象添加一些属性和方法。
+jQuery.Callbacks = function(options) {}
+// 回调对象:通过回调对象统一管理函数
+jQuery.extend({ Deferred: function(func) {} })
+// Deferred:延迟对象,对异步的统一管理
+jQuery.support = function(support) {}
+// support:功能检测,无需判断浏览器,通过判断功能检测浏览器版本
+jQuery.fn.extend({ queue: function(type, data) {} })
+// queue:队列管理,入队 dequeue:出队
+$('#div1').animate({ left: 100 })
+$('#div1').animate({ top: 100 })
+$('#div1').animate({ width: 100 }) //left->top->width 通过队列管理执行顺序
+//  这个就是通过queue队列管理实现的顺序进行动画。
+jQuery.fn.extend({ attr: function(name, value) {} })
+// 其中定义了attr(), prop(),val(),addClass()...方法,对元素属性的操作
+```
+
+## BootStrap
+
+> [BootStrap](http://www.bootcss.com)
+
+> 待补充
+
+## Zepto
+
+> [Zepto](https://www.html.cn/doc/zeptojs_api/)
+
+### Zepto 与 jQuery 的区别
+
+- 相同点：
+
+  > Zepto 是 jQuery 的轻量级替代品，它的 API 与 jquery 基本一致，它的体积非常小，jQuery 中常用的 API 和方法，Zepto 基本都有，所以适用于移动端开发。相比于 jQuery Mobile，Zepto 更合适。
+
+- 不同点：
+
+  1. Zepto 不支持 IE 浏览器
+  2. DOM 操作的区别
+     - 添加 id 时，jQuery 不会生效，Zepto 会生效
+  3. 事件触发的区别
+     - 使用 jQuery 时 load 事件的处理函数不会执行；使用 Zepto 时 load 事件的处理函数会执行
+  4. 事件委托的区别
+     - 在 Zepto 中，当 a 被点击后，依次弹出了内容为”a 事件“和”b 事件“，说明虽然事件委托在.a 上可是却也触发了.b 上的委托。但是在 jQuery 中只会触发.a 上面的委托弹出”a 事件“。Zepto 中，document 上所有的 click 委托事件都依次放入到一个队列中，点击的时候先看当前元素是不是.a，符合则执行，然后查看是不是.b，符合则执行。而在 jQuery 中，document 上委托了 2 个 click 事件，点击后通过选择符进行匹配，执行相应元素的委托事件。
+  5. tap 方法
+
+     -
