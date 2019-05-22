@@ -276,20 +276,27 @@ const promise = new Promise(function(resolve, reject) {
 ```js
 ;(function(window, undefined) {})()
 // 一个匿名函数自执行，它的好处在于，可以把代码块中所有的变量都变成局部变量，这样就不会造成对全局变量的一个污染，导致代码冲突
+
 jQuery.fn = jQuery.prototype = {}
 // 表明jQuery是一个基于面向对象的程序，往后就是在给jQuery对象添加一些属性和方法。
+
 jQuery.Callbacks = function(options) {}
 // 回调对象:通过回调对象统一管理函数
+
 jQuery.extend({ Deferred: function(func) {} })
 // Deferred:延迟对象,对异步的统一管理
+
 jQuery.support = function(support) {}
 // support:功能检测,无需判断浏览器,通过判断功能检测浏览器版本
+
 jQuery.fn.extend({ queue: function(type, data) {} })
 // queue:队列管理,入队 dequeue:出队
+
 $('#div1').animate({ left: 100 })
 $('#div1').animate({ top: 100 })
 $('#div1').animate({ width: 100 }) //left->top->width 通过队列管理执行顺序
 //  这个就是通过queue队列管理实现的顺序进行动画。
+
 jQuery.fn.extend({ attr: function(name, value) {} })
 // 其中定义了attr(), prop(),val(),addClass()...方法,对元素属性的操作
 ```
@@ -319,6 +326,242 @@ jQuery.fn.extend({ attr: function(name, value) {} })
      - 使用 jQuery 时 load 事件的处理函数不会执行；使用 Zepto 时 load 事件的处理函数会执行
   4. 事件委托的区别
      - 在 Zepto 中，当 a 被点击后，依次弹出了内容为”a 事件“和”b 事件“，说明虽然事件委托在.a 上可是却也触发了.b 上的委托。但是在 jQuery 中只会触发.a 上面的委托弹出”a 事件“。Zepto 中，document 上所有的 click 委托事件都依次放入到一个队列中，点击的时候先看当前元素是不是.a，符合则执行，然后查看是不是.b，符合则执行。而在 jQuery 中，document 上委托了 2 个 click 事件，点击后通过选择符进行匹配，执行相应元素的委托事件。
-  5. tap 方法
+  5. click 和 tap 比较
 
-     -
+     - 两者都会在点击时触发，但是在手机 WEB 端，click 会有 200~300 ms，所以请用 tap 代替 click 作为点击事件。
+
+## MUI
+
+> [MUI](http://dev.dcloud.net.cn/mui/)
+
+## swiper
+
+> [Swiper](https://www.swiper.com.cn/) 是纯 javascript 打造的滑动特效插件，面向手机、平板电脑等移动终端。
+
+### vue 使用 Swiper
+
+```js
+// CDN
+<link rel="stylesheet" href="path/to/swiper/dist/css/swiper.css"/>
+<script type="text/javascript" src="path/to/swiper.js"></script>
+<script type="text/javascript" src="path/to/dist/vue-awesome-swiper.js"></script>
+  Vue.use(window.VueAwesomeSwiper)
+
+//项目内全局安装
+
+import Vue from 'vue'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+
+import 'swiper/dist/css/swiper.css'
+
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
+
+// 组件内安装
+import 'swiper/dist/css/swiper.css'
+
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+
+export default {
+  components: {
+    swiper,
+    swiperSlide
+  }
+}
+```
+
+## Sass/Less
+
+[Sass](https://www.sass.hk/) 是一门 CSS 预处理语言,基于 Ruby 语言开发而成
+
+[Less](http://lesscss.cn/) 是一门 CSS 预处理语言
+
+    sass 和 less 都是 css 的预编译处理语言，他们引入了 mixins，参数，嵌套规则，运算，颜色，名字空间，作用域，JavaScript 赋值等 加快了 css 开发效率,当然这两者都可以配合 gulp 和 grunt 等前端构建工具使用
+
+- 变量
+
+  ```css
+  @width：100px;
+  .box {
+    width: @width;
+  }
+  ```
+
+- 嵌套规则
+
+  ```css
+  父级{
+      子集
+  }
+  ```
+
+- 插入文件(sass)
+
+      @import命令插入外部文件 .scss和css都可
+
+- 条件语句(sass)
+
+      //@if 可以用来判断 @else 则是配套
+
+      .box{
+          @if 1+1>1 {width:100px;}@else {
+              width:200px;
+          }
+      }
+
+- 循环语句(Sass)
+
+      //@for @while @each
+      @for $i from 1 to 10{
+          border-#{$i}{
+      border:#{\$i}px solid red;
+      }
+      }
+
+      //@while
+      $i:6;
+      @while $i>0{
+      .item-#{$i}{
+              width:2em*$i;
+      }
+      $i:$i-2;
+      }
+
+      //@each
+      @each $member in a, b, c, d {
+      　　　　.#{$member} {
+      　　　　　　 background-image: url("/image/#{\$member}.jpg");
+      　　　　}
+      　　}
+
+### Sass/less 的区别
+
+- sass 和 less 都是 css 的预编译处理语言，他们引入了 mixins，参数，嵌套规则，运算，颜色，名字空间，作用域，JavaScript 赋值等 加快了 css 开发效率,当然这两者都可以配合 gulp 和 grunt 等前端构建工具使用
+
+## VUE(2.x)
+
+> [VUE](https://cn.vuejs.org/)
+
+### 什么是深入响应式原理？
+
+- 深入响应式原理是利用了数据劫持和订阅发布的模式, 当数据模型发生改变的时候，
+- 视图就会响应的进行更新， 那么深入响应式原理是利用 es5 的 Object.defineProperty 中 getter/setter 来进行数据的劫持的
+
+- Vue 通过 watcher 将 data 中的属性全部使用 Object.definePropery 变成 getter 和 setter,当属性值发生
+  改变的时候， 就会触发， 然后 wather 就会触发， 告诉视图（V）进行重新渲染
+
+- 名称解释：
+
+  数据劫持： Object.defineProperty 中的 getter/setter ， 然后在执行 watcher
+
+  订阅发布：事件（自定义事件）
+
+  订阅： 事件的声明 vm.$on    
+      发布： 事件的触发  vm.$emit
+
+### 双向绑定的理解
+
+1. 效果
+
+   数据改，视图更
+
+   视图改，数据更
+
+2. 实现
+
+   使用 v-model 实现
+
+3. 缺点
+
+   v-model 默认绑定 value 属性， 所以 v-model 只能在表单使用
+
+4. 原理
+
+   1. 为什么数据能直接在视图显示
+
+      v-model 默认绑定了 DOM 对象的 value 属性， 当它初次绑定的时候，
+      就会触发 getter,watcher 就会触发， watcher 通知 Vue 生成新的 VDOM 树，
+      再通过 render 函数进行渲染,生成真实 DOM
+
+   2. 为什么视图修改数据就会修改
+
+      当视图修改是， 意味着 DOM 的 value 属性值改变，就会触发 setter,watcher 监听机制就会执行
+      watcher 通知 Vue 生成新的 VDOM 树，再通过 render 函数进行渲染,生成真实 DOM
+
+### watch 监听
+
+      用来监听数据的变换， 当数据模型 （data 选项 M）发生改变时， watch 就会触发
+
+      watch中的key指的就是data选项中key
+      对比 watch computed methods
+      methods : 用于时间
+      watch : 1.异步操作 2. 开销较大
+      computed : 1. 有逻辑 2. 要像变量一样使用
+
+### mixins
+
+组件即实例， 实例即组件
+
+1. 概念：
+
+   mixins 混合, 将根实例或是组件中的配置项抽离出来，单独管理
+
+2. 类型
+
+   A：局部混入
+
+   注意：
+
+   1. 即使分离出去， 我们的配置项中也可以继续写分离出去的配置
+   2. 如果说分离出去中的内容有冲突， 以组件中的配置项为准 3. 配置项中的方法执行时是最优先的
+
+   B: 全局混入
+
+   注意：全局混入慎用（不建议你使用）
+
+   理由：全局混入会影响所有的组件（实例）
+
+### 生命周期
+
+![生命周期表](./img/VUE生命周期表.png)
+
+- **beforeCreate（创建前）**
+
+  - 官方文档: 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+
+- **created（创建完）**
+
+  - 官方文档: 在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，\$el 属性目前不可见。
+
+- **beforeMount（挂载前）**
+
+  - 官方文档: 在挂载开始之前被调用：相关的 render 函数首次被调用。
+
+- **mounted（挂载完）**
+
+  - 官方文档: el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。
+
+- **beforeUpdate（更新前）**
+
+  - 官方文档: 数据更新时调用，发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器。
+
+  - 注: 该钩子在服务器端渲染期间不被调用，因为只有初次渲染会在服务端进行。
+
+- **updated（更新完）**
+
+  - 官方文档: 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
+
+    当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态。如果要相应状态改变，通常最好使用计算属性或 watcher 取而代之。
+
+  - 注: updated 不会承诺所有的子组件也都一起被重绘。如果你希望等到整个视图都重绘完毕，可以用 vm.\$nextTick 替换掉 updated
+
+- **beforeDestroy（销毁前）**
+
+  - 官方文档: 实例销毁之前调用。在这一步，实例仍然完全可用。
+
+  - 注: 该钩子在服务器端渲染期间不被调用。
+
+- **destroyed（销毁完）**
+
+  - 官方文档: Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
+
+  - 注: 该钩子在服务器端渲染期间不被调用。
