@@ -263,6 +263,35 @@ const promise = new Promise(function(resolve, reject) {
     Object.values({ 3: 'a', 4: 'b', 1: 'c' }) //['c', 'a', 'b']
     ```
 
+### 函数的闭包以及递归
+
+- 闭包
+
+  闭包的定义很简单：函数 A 返回了一个函数 B，并且函数 B 中使用了函数 A 的变量，函数 B 就被称为闭包。
+
+  ```js
+  function A() {
+    let a = 1
+    function B() {
+      console.log(a)
+    }
+    return B
+  }
+  ```
+
+- 递归
+
+  如果一个函数在内部调用自身本身，这个函数就是递归函数。
+
+  ```js
+  function fact(n){
+  if (n === 1){
+    return 1
+  }else{
+    return n * fact(n - 1)
+  }
+  ```
+
   `剩余待补充...`
 
 # 插件的掌握
@@ -325,7 +354,7 @@ jQuery.fn.extend({ attr: function(name, value) {} })
   3. 事件触发的区别
      - 使用 jQuery 时 load 事件的处理函数不会执行；使用 Zepto 时 load 事件的处理函数会执行
   4. 事件委托的区别
-     - 在 Zepto 中，当 a 被点击后，依次弹出了内容为”a 事件“和”b 事件“，说明虽然事件委托在.a 上可是却也触发了.b 上的委托。但是在 jQuery 中只会触发.a 上面的委托弹出”a 事件“。Zepto 中，document 上所有的 click 委托事件都依次放入到一个队列中，点击的时候先看当前元素是不是.a，符合则执行，然后查看是不是.b，符合则执行。而在 jQuery 中，document 上委托了 2 个 click 事件，点击后通过选择符进行匹配，执行相应元素的委托事件。
+     - 在 Zepto 中，当 a 被点击后，依次弹出了内容为"a 事件"和"b 事件"，说明虽然事件委托在.a 上可是却也触发了.b 上的委托。但是在 jQuery 中只会触发.a 上面的委托弹出”a 事件“。Zepto 中，document 上所有的 click 委托事件都依次放入到一个队列中，点击的时候先看当前元素是不是.a，符合则执行，然后查看是不是.b，符合则执行。而在 jQuery 中，document 上委托了 2 个 click 事件，点击后通过选择符进行匹配，执行相应元素的委托事件。
   5. click 和 tap 比较
 
      - 两者都会在点击时触发，但是在手机 WEB 端，click 会有 200~300 ms，所以请用 tap 代替 click 作为点击事件。
@@ -390,6 +419,7 @@ export default {
 
   ```css
   父级{
+
       子集
   }
   ```
@@ -520,7 +550,7 @@ export default {
 
    理由：全局混入会影响所有的组件（实例）
 
-### 生命周期
+### 生命周期（钩子函数）
 
 ![生命周期表](./img/VUE生命周期表.png)
 
@@ -565,3 +595,25 @@ export default {
   - 官方文档: Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
 
   - 注: 该钩子在服务器端渲染期间不被调用。
+
+### Vue Router
+
+使用 Vue.js ，我们已经可以通过组合组件来组成应用程序，当你要把 Vue Router 添加进来，我们需要做的是，将组件 (components) 映射到路由 (routes)，然后告诉 Vue Router 在哪里渲染它们。
+
+> yyz(自我理解):最终目的是进行组件间的交换，以引用的地址达成交换
+
+其余待补充...
+
+## VUEX
+
+Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。
+
+- **State**
+
+- **Getter**
+
+- **Mutation**
+
+- **Module**
+
+## [webpack](https://webpack.docschina.org/concepts/)-中文文档
