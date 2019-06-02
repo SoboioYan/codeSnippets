@@ -49,3 +49,5 @@ this.$refs.upload.addEventListener('change', async e => {
     return '导入文件成功'
   }
 })
+
+// 代码还是有些不够健壮，不如检查出其他东西 只能一味得拿到所属表头得数据

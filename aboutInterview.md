@@ -458,10 +458,10 @@ export default {
 
       //@each
       @each $member in a, b, c, d {
-      　　　　.#{$member} {
-      　　　　　　 background-image: url("/image/#{\$member}.jpg");
-      　　　　}
+      　.#{$member} {
+      　　　background-image: url("/image/#{\$member}.jpg");
       　　}
+      }
 
 ### Sass/less 的区别
 
@@ -616,4 +616,8 @@ Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用�
 
 - **Module**
 
-## [webpack](https://webpack.docschina.org/concepts/)-中文文档
+- **Action**
+
+## [webpack](https://webpack.docschina.org/concepts/)中文文档
+
+##
