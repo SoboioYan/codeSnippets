@@ -42,6 +42,7 @@ this.$refs.upload.addEventListener('change', async e => {
   })
   newfilesData = new Set(newfilesData)
   if (JSON.stringify(filesData).slice(1, 3) === '{}') {
+    // 该判断不够健壮
     return '导入文件有误,请检查文件重新导入'
   } else if (newfilesData.size !== filesData.length) {
     return '导入文件有误,请检查文件重新导入'
