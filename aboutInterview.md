@@ -52,29 +52,29 @@ AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。Ajax 
 function CreateXmlHttp() {
   //创建XmlHttpRequest对象
   if (window.XmlHttpRequest) {
-    xmlhttp = new XmlHttpRequest()
+    xmlhttp = new XmlHttpRequest();
   }
 }
 
 function Ustbwuyi() {
-  var data = document.getElementById('username').value
-  CreateXmlHttp()
+  var data = document.getElementById("username").value;
+  CreateXmlHttp();
   if (!xmlhttp) {
-    alert('创建xmlhttp对象异常！')
-    return false
+    alert("创建xmlhttp对象异常！");
+    return false;
   }
 
-  xmlhttp.open('POST', url, false)
+  xmlhttp.open("POST", url, false);
 
   xmlhttp.onreadystatechange = function() {
     if (xmlhttp.readyState == 4) {
-      document.getElementById('user1').innerHTML = '数据正在加载...'
+      document.getElementById("user1").innerHTML = "数据正在加载...";
       if (xmlhttp.status == 200) {
-        document.write(xmlhttp.responseText)
+        document.write(xmlhttp.responseText);
       }
     }
-  }
-  xmlhttp.send()
+  };
+  xmlhttp.send();
 }
 ```
 
@@ -207,7 +207,7 @@ const promise = new Promise(function(resolve, reject) {
 - 求幂运算符（\*\*）
 
   ```js
-  3 ** 2 // 9
+  3 ** 2; // 9
   ```
 
 ### 关于 ES8 你了解多少
@@ -220,29 +220,31 @@ const promise = new Promise(function(resolve, reject) {
   ```js
   async function showAvatar() {
     // read our JSON
-    let response = await fetch('/article/promise-chaining/user.json')
-    let user = await response.json()
+    let response = await fetch("/article/promise-chaining/user.json");
+    let user = await response.json();
 
     // read github user
-    let githubResponse = await fetch(`https://api.github.com/users/${user.name}`)
-    let githubUser = await githubResponse.json()
+    let githubResponse = await fetch(
+      `https://api.github.com/users/${user.name}`
+    );
+    let githubUser = await githubResponse.json();
 
     // 展示头像
-    let img = document.createElement('img')
-    img.src = githubUser.avatar_url
-    img.className = 'promise-avatar-example'
-    documenmt.body.append(img)
+    let img = document.createElement("img");
+    img.src = githubUser.avatar_url;
+    img.className = "promise-avatar-example";
+    documenmt.body.append(img);
 
     // 等待3s
     await new Promise((resolve, reject) => {
-      setTimeout(resolve, 3000)
-    })
+      setTimeout(resolve, 3000);
+    });
 
-    img.remove()
+    img.remove();
 
-    return githubUser
+    return githubUser;
   }
-  showAvatar()
+  showAvatar();
   ```
 
 - Object.entries()和 Object.values()
@@ -252,15 +254,15 @@ const promise = new Promise(function(resolve, reject) {
     > 如果一个对象是具有键值对的数据结构，则每一个键值对都将会编译成一个具有两个元素的数组，这些数组最终会放到一个数组中，返回一个二维数组,若目标对象是数组时，则会将数组的下标作为键值返回
 
     ```js
-    Object.entries({ one: 1, two: 2 }) //[['one', 1], ['two', 2]]
-    Object.entries([1, 2]) //[['0', 1], ['1', 2]]
+    Object.entries({ one: 1, two: 2 }); //[['one', 1], ['two', 2]]
+    Object.entries([1, 2]); //[['0', 1], ['1', 2]]
     ```
 
   - Object.values()
     > 它的工作原理跟 Object.entries()很像，顾名思义，它只返回自己的键值对中属性的值。它返回的数组顺序，也跟 Object.entries()保持一致。
     ```js
-    Object.values({ one: 1, two: 2 }) //[1, 2]
-    Object.values({ 3: 'a', 4: 'b', 1: 'c' }) //['c', 'a', 'b']
+    Object.values({ one: 1, two: 2 }); //[1, 2]
+    Object.values({ 3: "a", 4: "b", 1: "c" }); //['c', 'a', 'b']
     ```
 
 ### 函数的闭包以及递归
@@ -271,11 +273,11 @@ const promise = new Promise(function(resolve, reject) {
 
   ```js
   function A() {
-    let a = 1
+    let a = 1;
     function B() {
-      console.log(a)
+      console.log(a);
     }
-    return B
+    return B;
   }
   ```
 
@@ -292,7 +294,14 @@ const promise = new Promise(function(resolve, reject) {
   }
   ```
 
-  `剩余待补充...`
+### 判断类型数据
+
+1. typeof
+2. instanceof
+3. constructor
+4. toString
+
+   `剩余待补充...`
 
 # 插件的掌握
 
@@ -303,30 +312,30 @@ const promise = new Promise(function(resolve, reject) {
 ### （简单的）jQuery 源码分析
 
 ```js
-;(function(window, undefined) {})()
+(function(window, undefined) {})();
 // 一个匿名函数自执行，它的好处在于，可以把代码块中所有的变量都变成局部变量，这样就不会造成对全局变量的一个污染，导致代码冲突
 
-jQuery.fn = jQuery.prototype = {}
+jQuery.fn = jQuery.prototype = {};
 // 表明jQuery是一个基于面向对象的程序，往后就是在给jQuery对象添加一些属性和方法。
 
-jQuery.Callbacks = function(options) {}
+jQuery.Callbacks = function(options) {};
 // 回调对象:通过回调对象统一管理函数
 
-jQuery.extend({ Deferred: function(func) {} })
+jQuery.extend({ Deferred: function(func) {} });
 // Deferred:延迟对象,对异步的统一管理
 
-jQuery.support = function(support) {}
+jQuery.support = function(support) {};
 // support:功能检测,无需判断浏览器,通过判断功能检测浏览器版本
 
-jQuery.fn.extend({ queue: function(type, data) {} })
+jQuery.fn.extend({ queue: function(type, data) {} });
 // queue:队列管理,入队 dequeue:出队
 
-$('#div1').animate({ left: 100 })
-$('#div1').animate({ top: 100 })
-$('#div1').animate({ width: 100 }) //left->top->width 通过队列管理执行顺序
+$("#div1").animate({ left: 100 });
+$("#div1").animate({ top: 100 });
+$("#div1").animate({ width: 100 }); //left->top->width 通过队列管理执行顺序
 //  这个就是通过queue队列管理实现的顺序进行动画。
 
-jQuery.fn.extend({ attr: function(name, value) {} })
+jQuery.fn.extend({ attr: function(name, value) {} });
 // 其中定义了attr(), prop(),val(),addClass()...方法,对元素属性的操作
 ```
 
@@ -517,15 +526,78 @@ export default {
       当视图修改是， 意味着 DOM 的 value 属性值改变，就会触发 setter,watcher 监听机制就会执行
       watcher 通知 Vue 生成新的 VDOM 树，再通过 render 函数进行渲染,生成真实 DOM
 
+5. 自定义组件的双向绑定
+
+- vue 中父子组件通信，都是单项的，直接在子组件中修改 prop 传的值 vue 也会给出一个警告，接下来就用一个小列子一步一步实现了 vue 自定义的组件实现 v-model 双向绑定，父组件值变了子组件也会跟着变，子组件中传过来的值变了，父组件值也会跟着变化。
+
+  ```html
+  //父级组件
+  <template>
+    <div>
+      <p>我是父级组件</p>
+      <p>父级组件内容：{{ text }}</p>
+      <p><button @click="onChange">改变内容</button></p>
+      <hr />
+      <child v-model="text"></child>
+    </div>
+  </template>
+  <script>
+    import Child from "./child";
+    export default {
+      components: {
+        Child
+      },
+      data() {
+        return {
+          text: "我是父级组件的内容"
+        };
+      },
+      methods: {
+        onChange() {
+          this.text = "我是由父级组件触发改变了内容";
+        }
+      }
+    };
+  </script>
+  <style scoped></style>
+
+  // 子组件
+
+  <template>
+    <div>
+      <p>我是子组件</p>
+      <p>子组件内容：{{ value }}</p>
+      <p><button @click="onChange">改变内容</button></p>
+    </div>
+  </template>
+  <script>
+    export default {
+      props: {
+        //此处一定要用value
+        value: {
+          type: String
+        }
+      },
+      methods: {
+        onChange() {
+          this.value = "我是由子组件触发改变了内容";
+        }
+      }
+    };
+  </script>
+  ```
+
+  ![预览](./img/20181025162519908.png)
+
 ### watch 监听
 
-      用来监听数据的变换， 当数据模型 （data 选项 M）发生改变时， watch 就会触发
+用来监听数据的变换， 当数据模型 （data 选项 M）发生改变时， watch 就会触发
 
-      watch中的key指的就是data选项中key
-      对比 watch computed methods
-      methods : 用于时间
-      watch : 1.异步操作 2. 开销较大
-      computed : 1. 有逻辑 2. 要像变量一样使用
+watch 中的 key 指的就是 data 选项中 key
+对比 watch computed methods
+methods : 用于时间
+watch : 1.异步操作 2. 开销较大
+computed : 1. 有逻辑 2. 要像变量一样使用
 
 ### mixins
 
@@ -533,22 +605,22 @@ export default {
 
 1. 概念：
 
-   mixins 混合, 将根实例或是组件中的配置项抽离出来，单独管理
+mixins 混合, 将根实例或是组件中的配置项抽离出来，单独管理
 
 2. 类型
 
-   A：局部混入
+A：局部混入
 
-   注意：
+注意：
 
-   1. 即使分离出去， 我们的配置项中也可以继续写分离出去的配置
-   2. 如果说分离出去中的内容有冲突， 以组件中的配置项为准 3. 配置项中的方法执行时是最优先的
+1. 即使分离出去， 我们的配置项中也可以继续写分离出去的配置
+2. 如果说分离出去中的内容有冲突， 以组件中的配置项为准 3. 配置项中的方法执行时是最优先的
 
-   B: 全局混入
+B: 全局混入
 
-   注意：全局混入慎用（不建议你使用）
+注意：全局混入慎用（不建议你使用）
 
-   理由：全局混入会影响所有的组件（实例）
+理由：全局混入会影响所有的组件（实例）
 
 ### 生命周期（钩子函数）
 
@@ -556,45 +628,45 @@ export default {
 
 - **beforeCreate（创建前）**
 
-  - 官方文档: 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+- 官方文档: 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
 
 - **created（创建完）**
 
-  - 官方文档: 在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，\$el 属性目前不可见。
+- 官方文档: 在实例创建完成后被立即调用。在这一步，实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，\$el 属性目前不可见。
 
 - **beforeMount（挂载前）**
 
-  - 官方文档: 在挂载开始之前被调用：相关的 render 函数首次被调用。
+- 官方文档: 在挂载开始之前被调用：相关的 render 函数首次被调用。
 
 - **mounted（挂载完）**
 
-  - 官方文档: el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。
+- 官方文档: el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。
 
 - **beforeUpdate（更新前）**
 
-  - 官方文档: 数据更新时调用，发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器。
+- 官方文档: 数据更新时调用，发生在虚拟 DOM 打补丁之前。这里适合在更新之前访问现有的 DOM，比如手动移除已添加的事件监听器。
 
-  - 注: 该钩子在服务器端渲染期间不被调用，因为只有初次渲染会在服务端进行。
+- 注: 该钩子在服务器端渲染期间不被调用，因为只有初次渲染会在服务端进行。
 
 - **updated（更新完）**
 
-  - 官方文档: 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
+- 官方文档: 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
 
-    当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态。如果要相应状态改变，通常最好使用计算属性或 watcher 取而代之。
+当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态。如果要相应状态改变，通常最好使用计算属性或 watcher 取而代之。
 
-  - 注: updated 不会承诺所有的子组件也都一起被重绘。如果你希望等到整个视图都重绘完毕，可以用 vm.\$nextTick 替换掉 updated
+- 注: updated 不会承诺所有的子组件也都一起被重绘。如果你希望等到整个视图都重绘完毕，可以用 vm.\$nextTick 替换掉 updated
 
 - **beforeDestroy（销毁前）**
 
-  - 官方文档: 实例销毁之前调用。在这一步，实例仍然完全可用。
+- 官方文档: 实例销毁之前调用。在这一步，实例仍然完全可用。
 
-  - 注: 该钩子在服务器端渲染期间不被调用。
+- 注: 该钩子在服务器端渲染期间不被调用。
 
 - **destroyed（销毁完）**
 
-  - 官方文档: Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
+- 官方文档: Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
 
-  - 注: 该钩子在服务器端渲染期间不被调用。
+- 注: 该钩子在服务器端渲染期间不被调用。
 
 ### Vue Router
 
@@ -602,7 +674,97 @@ export default {
 
 > yyz(自我理解):最终目的是进行组件间的交换，以引用的地址达成交换
 
-其余待补充...
+- router 的生命周期
+
+  ```js
+  module.exports = {
+    //props: ['父组建传的值'],
+    data: function() {
+      lifecycle.push("data");
+      return {
+        msg: "各个阶段，可以查看控制台输出，message from my-views",
+        title: "my_views",
+        lifecycle: lifecycle
+      };
+    },
+    //这里是route的生存周期
+    route: {
+      //waitForData: true, //  数据加载完毕后再切换试图，也就是 点击之后先没反应，然后数据加载完，再出发过渡效果
+      canActivate: function(transition) {
+        //  canActivate阶段，可以做一些用户验证的事情(是否可以被激活)
+        //  在验证阶段，当一个组件将要被切入的时候被调用。
+      },
+      activate: function(transition) {
+        //  在激活阶段被调用，在 activate 被断定（ resolved ，指该函数返回的 promise 被 resolve ）。用于加载和设置当前组件的数据。(激活)
+        //this.$root.$set('header',this.title);
+        transition.next();
+        //此方法结束后，api会调用afterActivate 方法
+        //在aftefActivate中 会给组件添加 $loadingRouteData 属性 并设置为true
+      },
+      data: function(transition) {
+        var _this = this;
+        //  在激活阶段被调用，在 activate 被断定（ resolved ，指该函数返回的 promise 被 resolve ）。用于加载和设置当前组件的数据
+        // 说明之前请求过 则不用再请求了
+        if (this.$root.myViewsData) {
+          this.$data = this.$root.myViewsData;
+          transition.next();
+          console.log("已经请求过了不再请求数据");
+          return;
+        }
+
+        //将数据同步到根节点
+        this.$root.myViewsData = this.$data;
+        setTimeout(
+          function() {
+            //这里 _this.$loadingRouteData 是 true
+            transition.next({ msg: "加载后的数据" });
+            //在调用完transition.next 后，_this.$loadingRouteData 为 false
+          }.bind(this),
+          4000
+        );
+      },
+      canDeactivate: function(transition) {
+        //  在验证阶段，当一个组件将要被切出的时候被调用。(是否可以被禁用)
+      },
+      deactivate: function(transition) {
+        //  在激活阶段，当一个组件将要被禁用和移除之时被调用。(禁用)
+      }
+    },
+    // 生命周期
+    beforeCreate: function() {
+      // 在实例初始化之后，数据观测(data observer) 和 event/watcher 事件配置之前被调用。
+    },
+    created: function() {
+      // 实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算， watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。
+    },
+    mounted: function() {
+      // el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。
+    },
+    beforeUpdate: function() {
+      // 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。
+      // 你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。
+    },
+    Update: function() {
+      // 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
+      //当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态，因为这可能会导致更新无限循环。
+    },
+
+    // <keep-alive> 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
+    activated: function() {
+      // keep-alive 组件激活时调用。
+    },
+    deactivated: function() {
+      // keep-alive 组件停用时调用。
+    },
+
+    beforeDestroy: function() {
+      // 实例销毁之前调用。在这一步，实例仍然完全可用。
+    },
+    destroyed: function() {
+      // Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
+    }
+  };
+  ```
 
 ## VUEX
 
@@ -621,3 +783,7 @@ Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用�
 ## [webpack](https://webpack.docschina.org/concepts/)中文文档
 
 ##
+
+```
+
+```
