@@ -52,29 +52,29 @@ AJAX = Asynchronous JavaScript and XML（异步的 JavaScript 和 XML）。Ajax 
 function CreateXmlHttp() {
   //创建XmlHttpRequest对象
   if (window.XmlHttpRequest) {
-    xmlhttp = new XmlHttpRequest()
+    xmlhttp = new XmlHttpRequest();
   }
 }
 
 function Ustbwuyi() {
-  var data = document.getElementById('username').value
-  CreateXmlHttp()
+  var data = document.getElementById("username").value;
+  CreateXmlHttp();
   if (!xmlhttp) {
-    alert('创建xmlhttp对象异常！')
-    return false
+    alert("创建xmlhttp对象异常！");
+    return false;
   }
 
-  xmlhttp.open('POST', url, false)
+  xmlhttp.open("POST", url, false);
 
-  xmlhttp.onreadystatechange = function() {
+  xmlhttp.onreadystatechange = function () {
     if (xmlhttp.readyState == 4) {
-      document.getElementById('user1').innerHTML = '数据正在加载...'
+      document.getElementById("user1").innerHTML = "数据正在加载...";
       if (xmlhttp.status == 200) {
-        document.write(xmlhttp.responseText)
+        document.write(xmlhttp.responseText);
       }
     }
-  }
-  xmlhttp.send()
+  };
+  xmlhttp.send();
 }
 ```
 
@@ -207,7 +207,7 @@ const promise = new Promise(function(resolve, reject) {
 - 求幂运算符（\*\*）
 
   ```js
-  3 ** 2 // 9
+  3 ** 2; // 9
   ```
 
 ### 关于 ES8 你了解多少
@@ -220,29 +220,31 @@ const promise = new Promise(function(resolve, reject) {
   ```js
   async function showAvatar() {
     // read our JSON
-    let response = await fetch('/article/promise-chaining/user.json')
-    let user = await response.json()
+    let response = await fetch("/article/promise-chaining/user.json");
+    let user = await response.json();
 
     // read github user
-    let githubResponse = await fetch(`https://api.github.com/users/${user.name}`)
-    let githubUser = await githubResponse.json()
+    let githubResponse = await fetch(
+      `https://api.github.com/users/${user.name}`
+    );
+    let githubUser = await githubResponse.json();
 
     // 展示头像
-    let img = document.createElement('img')
-    img.src = githubUser.avatar_url
-    img.className = 'promise-avatar-example'
-    documenmt.body.append(img)
+    let img = document.createElement("img");
+    img.src = githubUser.avatar_url;
+    img.className = "promise-avatar-example";
+    documenmt.body.append(img);
 
     // 等待3s
     await new Promise((resolve, reject) => {
-      setTimeout(resolve, 3000)
-    })
+      setTimeout(resolve, 3000);
+    });
 
-    img.remove()
+    img.remove();
 
-    return githubUser
+    return githubUser;
   }
-  showAvatar()
+  showAvatar();
   ```
 
 - Object.entries()和 Object.values()
@@ -252,15 +254,15 @@ const promise = new Promise(function(resolve, reject) {
     > 如果一个对象是具有键值对的数据结构，则每一个键值对都将会编译成一个具有两个元素的数组，这些数组最终会放到一个数组中，返回一个二维数组,若目标对象是数组时，则会将数组的下标作为键值返回
 
     ```js
-    Object.entries({ one: 1, two: 2 }) //[['one', 1], ['two', 2]]
-    Object.entries([1, 2]) //[['0', 1], ['1', 2]]
+    Object.entries({ one: 1, two: 2 }); //[['one', 1], ['two', 2]]
+    Object.entries([1, 2]); //[['0', 1], ['1', 2]]
     ```
 
   - Object.values()
     > 它的工作原理跟 Object.entries()很像，顾名思义，它只返回自己的键值对中属性的值。它返回的数组顺序，也跟 Object.entries()保持一致。
     ```js
-    Object.values({ one: 1, two: 2 }) //[1, 2]
-    Object.values({ 3: 'a', 4: 'b', 1: 'c' }) //['c', 'a', 'b']
+    Object.values({ one: 1, two: 2 }); //[1, 2]
+    Object.values({ 3: "a", 4: "b", 1: "c" }); //['c', 'a', 'b']
     ```
 
   `剩余待补充...`
@@ -274,30 +276,30 @@ const promise = new Promise(function(resolve, reject) {
 ### （简单的）jQuery 源码分析
 
 ```js
-;(function(window, undefined) {})()
+(function (window, undefined) {})();
 // 一个匿名函数自执行，它的好处在于，可以把代码块中所有的变量都变成局部变量，这样就不会造成对全局变量的一个污染，导致代码冲突
 
-jQuery.fn = jQuery.prototype = {}
+jQuery.fn = jQuery.prototype = {};
 // 表明jQuery是一个基于面向对象的程序，往后就是在给jQuery对象添加一些属性和方法。
 
-jQuery.Callbacks = function(options) {}
+jQuery.Callbacks = function (options) {};
 // 回调对象:通过回调对象统一管理函数
 
-jQuery.extend({ Deferred: function(func) {} })
+jQuery.extend({ Deferred: function (func) {} });
 // Deferred:延迟对象,对异步的统一管理
 
-jQuery.support = function(support) {}
+jQuery.support = function (support) {};
 // support:功能检测,无需判断浏览器,通过判断功能检测浏览器版本
 
-jQuery.fn.extend({ queue: function(type, data) {} })
+jQuery.fn.extend({ queue: function (type, data) {} });
 // queue:队列管理,入队 dequeue:出队
 
-$('#div1').animate({ left: 100 })
-$('#div1').animate({ top: 100 })
-$('#div1').animate({ width: 100 }) //left->top->width 通过队列管理执行顺序
+$("#div1").animate({ left: 100 });
+$("#div1").animate({ top: 100 });
+$("#div1").animate({ width: 100 }); //left->top->width 通过队列管理执行顺序
 //  这个就是通过queue队列管理实现的顺序进行动画。
 
-jQuery.fn.extend({ attr: function(name, value) {} })
+jQuery.fn.extend({ attr: function (name, value) {} });
 // 其中定义了attr(), prop(),val(),addClass()...方法,对元素属性的操作
 ```
 
@@ -565,3 +567,9 @@ export default {
   - 官方文档: Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
 
   - 注: 该钩子在服务器端渲染期间不被调用。
+
+### 路由
+
+## 知识点补充
+
+### JS 的 new 操作符
