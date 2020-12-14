@@ -8,7 +8,7 @@
 export const postWithFile = ({ url, data, fileForm }) =>
   new Promise((resolve, reject) => {
     data = data || {}
-    let prefix = process.env.VUE_APP_HOST || `${config.protocol}://${config.host}:${config.port}` // 根据情况而定   这里使用的是.env
+    let prefix = process.env.VUE_APP_HOST || `${config.protocol}://${config.host}:${config.port}` // 根据情况而定   这里配合使用的是.env
 
     url = [prefix, url].join('/')
     const formData = new FormData()
@@ -34,7 +34,7 @@ export const postWithFile = ({ url, data, fileForm }) =>
     }
   })
 
-  // POST 表单式 请求
+// POST 表单式 请求
 export const post = ({ url, data }) =>
   new Promise((resolve, reject) => {
     data = data || {}
@@ -62,7 +62,7 @@ export const post = ({ url, data }) =>
     }
   })
 
-  // POST 传输JSON 请求
+// POST 传输JSON 请求
 export const postJOSN = ({ url, data }) =>
   new Promise((resolve, reject) => {
     data = data || {}
