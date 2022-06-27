@@ -44,11 +44,15 @@
    - 传值方 router-link :to="'/url/'+ids".
    - 取值方 this.\$route.params 来获取传过来的值.
 5. 一定要打印请求之后回来的参数!!!说不定在下个页面你想要的数据,请求回来的数据就带有给你返回了~~~~
-6. vue 中,绑定 v-on:click="getData($event)"之后,在下面的methods方法里面,可以:
-    getData($event){
-   console.log($event.target);//即可得到当前点击的元素,后面加.innerText可以获取当前元素的文本内容
-        console.log($event.currentTarget);//即可得到当前触发点击时间的元素,后面加.innerText 可以...
-   }
+6. vue 中,绑定 v-on:click="getData($event)"之后,在下面的 methods 方法里面,可以:
+
+   ```JS
+       getData($event){
+            console.log($event.target);//即可得到当前点击的元素,后面加.innerText可以获取当前元素的文本内容
+            console.log($event.currentTarget);//即可得到当前触发点击时间的元素,后面加.innerText 可以...
+        }
+   ```
+
 7. li 或者 tr 用 v-for 之后,动态绑定一个:id="item.id",在该行的点击事件@click="xxx(item.id)",传入 item.id 参数.然后下面的 methods 方法写该方法的时候,可以直接接收:xxx(id).
 8. 前端打包部署:可以 npm run build 之后,上传到 git,然后后台配置好.
    平安神兵系统:编译前脚本的位置:npm install

@@ -312,22 +312,22 @@ const promise = new Promise(function(resolve, reject) {
 ### （简单的）jQuery 源码分析
 
 ```js
-(function(window, undefined) {})();
+(function (window, undefined) {})();
 // 一个匿名函数自执行，它的好处在于，可以把代码块中所有的变量都变成局部变量，这样就不会造成对全局变量的一个污染，导致代码冲突
 
 jQuery.fn = jQuery.prototype = {};
 // 表明jQuery是一个基于面向对象的程序，往后就是在给jQuery对象添加一些属性和方法。
 
-jQuery.Callbacks = function(options) {};
+jQuery.Callbacks = function (options) {};
 // 回调对象:通过回调对象统一管理函数
 
-jQuery.extend({ Deferred: function(func) {} });
+jQuery.extend({ Deferred: function (func) {} });
 // Deferred:延迟对象,对异步的统一管理
 
-jQuery.support = function(support) {};
+jQuery.support = function (support) {};
 // support:功能检测,无需判断浏览器,通过判断功能检测浏览器版本
 
-jQuery.fn.extend({ queue: function(type, data) {} });
+jQuery.fn.extend({ queue: function (type, data) {} });
 // queue:队列管理,入队 dequeue:出队
 
 $("#div1").animate({ left: 100 });
@@ -335,7 +335,7 @@ $("#div1").animate({ top: 100 });
 $("#div1").animate({ width: 100 }); //left->top->width 通过队列管理执行顺序
 //  这个就是通过queue队列管理实现的顺序进行动画。
 
-jQuery.fn.extend({ attr: function(name, value) {} });
+jQuery.fn.extend({ attr: function (name, value) {} });
 // 其中定义了attr(), prop(),val(),addClass()...方法,对元素属性的操作
 ```
 
@@ -545,18 +545,18 @@ export default {
     import Child from "./child";
     export default {
       components: {
-        Child
+        Child,
       },
       data() {
         return {
-          text: "我是父级组件的内容"
+          text: "我是父级组件的内容",
         };
       },
       methods: {
         onChange() {
           this.text = "我是由父级组件触发改变了内容";
-        }
-      }
+        },
+      },
     };
   </script>
   <style scoped></style>
@@ -575,14 +575,14 @@ export default {
       props: {
         //此处一定要用value
         value: {
-          type: String
-        }
+          type: String,
+        },
       },
       methods: {
         onChange() {
           this.value = "我是由子组件触发改变了内容";
-        }
-      }
+        },
+      },
     };
   </script>
   ```
@@ -679,29 +679,29 @@ B: 全局混入
   ```js
   module.exports = {
     //props: ['父组建传的值'],
-    data: function() {
+    data: function () {
       lifecycle.push("data");
       return {
         msg: "各个阶段，可以查看控制台输出，message from my-views",
         title: "my_views",
-        lifecycle: lifecycle
+        lifecycle: lifecycle,
       };
     },
     //这里是route的生存周期
     route: {
       //waitForData: true, //  数据加载完毕后再切换试图，也就是 点击之后先没反应，然后数据加载完，再出发过渡效果
-      canActivate: function(transition) {
+      canActivate: function (transition) {
         //  canActivate阶段，可以做一些用户验证的事情(是否可以被激活)
         //  在验证阶段，当一个组件将要被切入的时候被调用。
       },
-      activate: function(transition) {
+      activate: function (transition) {
         //  在激活阶段被调用，在 activate 被断定（ resolved ，指该函数返回的 promise 被 resolve ）。用于加载和设置当前组件的数据。(激活)
         //this.$root.$set('header',this.title);
         transition.next();
         //此方法结束后，api会调用afterActivate 方法
         //在aftefActivate中 会给组件添加 $loadingRouteData 属性 并设置为true
       },
-      data: function(transition) {
+      data: function (transition) {
         var _this = this;
         //  在激活阶段被调用，在 activate 被断定（ resolved ，指该函数返回的 promise 被 resolve ）。用于加载和设置当前组件的数据
         // 说明之前请求过 则不用再请求了
@@ -715,7 +715,7 @@ B: 全局混入
         //将数据同步到根节点
         this.$root.myViewsData = this.$data;
         setTimeout(
-          function() {
+          function () {
             //这里 _this.$loadingRouteData 是 true
             transition.next({ msg: "加载后的数据" });
             //在调用完transition.next 后，_this.$loadingRouteData 为 false
@@ -723,46 +723,46 @@ B: 全局混入
           4000
         );
       },
-      canDeactivate: function(transition) {
+      canDeactivate: function (transition) {
         //  在验证阶段，当一个组件将要被切出的时候被调用。(是否可以被禁用)
       },
-      deactivate: function(transition) {
+      deactivate: function (transition) {
         //  在激活阶段，当一个组件将要被禁用和移除之时被调用。(禁用)
-      }
+      },
     },
     // 生命周期
-    beforeCreate: function() {
+    beforeCreate: function () {
       // 在实例初始化之后，数据观测(data observer) 和 event/watcher 事件配置之前被调用。
     },
-    created: function() {
+    created: function () {
       // 实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算， watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。
     },
-    mounted: function() {
+    mounted: function () {
       // el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。
     },
-    beforeUpdate: function() {
+    beforeUpdate: function () {
       // 数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前。
       // 你可以在这个钩子中进一步地更改状态，这不会触发附加的重渲染过程。
     },
-    Update: function() {
+    Update: function () {
       // 由于数据更改导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子。
       //当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态，因为这可能会导致更新无限循环。
     },
 
     // <keep-alive> 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。
-    activated: function() {
+    activated: function () {
       // keep-alive 组件激活时调用。
     },
-    deactivated: function() {
+    deactivated: function () {
       // keep-alive 组件停用时调用。
     },
 
-    beforeDestroy: function() {
+    beforeDestroy: function () {
       // 实例销毁之前调用。在这一步，实例仍然完全可用。
     },
-    destroyed: function() {
+    destroyed: function () {
       // Vue 实例销毁后调用。调用后，Vue 实例指示的所有东西都会解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
-    }
+    },
   };
   ```
 
@@ -780,7 +780,51 @@ Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用�
 
 - **Action**
 
-## [webpack](https://webpack.docschina.org/concepts/)中文文档
+## WEBPACK
+
+  ### [webpack](https://webpack.docschina.org/concepts/)中文文档
+
+### 前面的话
+  * webpack 是一个模块打包器(module bundler)，处理模块间的依赖关系，并进行打包。
+
+### webpack 基本功能
+  1. 依赖管理：方便引用第三方模块，让模块更容易复用、避免全局注入导致的冲突、避免重复加载或者加载不必要的模块
+  2. 合并代码：把各个分散的模块集中打包成大文件，减少 HTTP 的链接的请求次数，配合 uglify.js 可以减少、优化代码的体积
+  3. 各种插件：babel 把 ES6+转化为 ES5-，eslint 可以检查编译时的各种错误
+
+### webpack 的工作原理
+  * 简单的说就是分析代码，找到“require”、“exports”、“define”等关键词，并替换成对应模块的引用。
+  * 在一个配置文件中，指明对某些文件进行编译、压缩、组合等任务。把你的项目当成一个整体，通过一个给定的主文件 （index.js），webpack 将从这个文件开始找到你的项目的所有的依赖文件，使用 loaders 处理他们，最后打包为一个浏览器可以识别的 js 文件。
+
+### 使用 webpack 之前
+
+  - 举个例子：index.html 里面有一大堆的 css 和 js 文件，如 a.js b.js c.js 等等
+
+  1. a.js 要用到 b.js 里面的一个函数，则 a.js 要放在 b.js 后面
+
+  2. c.js 要用到 a.js 里面的一个函数，则 c.js 要放在 a.js 后面
+
+  3. b.js 又要用到某个 js 文件里面的函数，则 b.js 就要放在其后面
+
+    如果有 N 多个 js 文件，需要手动处理他们的关系，即容易出错。
+
+### 使用 webpack
+
+    webpack 的理念就是一切皆模块化，把一堆的 css 文件和 js 文件放在一个总的入口文件，通过 require 引入，剩下的事情 webpack 会处理，包括所有模块的前后依赖关系，打包、压缩、合并成一个 js 文件，公共代码抽离成一个 js 文件、某些自己指定的 js 单独打包，模块可以是 css/js/imsge/font 等等。
+
+### 使用场景
+
+    自动处理里面的图片路径，css 里面背景图的路径，字体引用
+
+    根据模板生成 HTML，并自动处理上面的 css/js 引用路径
+
+    开启本地服务器，一边改写代码，一边自动更新页面内容
+
+    编译 jsx es6 sass less coffescript 等，并添加 md5、sourcemap 等辅助
+
+    异步加载内容，不需要时不加载到 DOM
+
+    配合 vue.js react.js 等框架开发
 
 ##
 
